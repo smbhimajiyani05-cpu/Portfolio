@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shubham Bhimajiyani</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#050505;color:white;overflow-x:hidden;}
+canvas{position:fixed;top:0;left:0;z-index:-1;}
+
+.neon{color:#00ffff;text-shadow:0 0 5px #00ffff,0 0 20px #00ffff,0 0 40px #00ffff;}
+header{text-align:center;padding:60px 20px;}
+
+.profile{width:150px;height:150px;border-radius:50%;border:3px solid #00ffff;box-shadow:0 0 25px #00ffff;object-fit:cover;}
+
+.card{background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:25px;margin:20px auto;border-radius:20px;max-width:900px;box-shadow:0 0 20px #00ffff33;}
+
+.btn{background:#00ffff;padding:12px 25px;border-radius:30px;border:none;cursor:pointer;font-size:16px;margin:10px;}
+
+.circle{width:120px;height:120px;border-radius:50%;background:conic-gradient(#00ffff 0% 80%, #222 80% 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px #00ffff;margin:auto;}
+.circle span{font-size:22px;font-weight:bold;}
+
+.skills{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;}
+
+.project{padding:15px;border:1px solid transparent;border-radius:15px;margin:10px;background:linear-gradient(#050505,#050505) padding-box,linear-gradient(45deg,#00ffff,#0099ff) border-box;text-align:center;}
+
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:#111;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 30px #00ffff;
+width:90%;
+max-width:400px;
+transition:.4s;
+z-index:1000;
+}
+.popup.active{transform:translate(-50%,-50%) scale(1);}
+
+.input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid #00ffff;
+background:#050505;
+color:white;
+}
+
+footer{text-align:center;padding:20px;color:#aaa;}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<header>
+<img src="photo.jpg" class="profile">
+<h1 class="neon" id="typing"></h1>
+<p>Chemical Engineering Student</p>
+
+<button class="btn" onclick="openContact()">Contact</button>
+<button class="btn" onclick="window.open('https://wa.me/919375046986')">WhatsApp</button>
+</header>
+
+<div class="card">
+<h2 class="neon">Skills</h2>
+<div class="skills">
+<div>
+<div class="circle"><span id="py">0%</span></div>
+<p align="center">Python</p>
+</div>
+
+<div>
+<div class="circle" style="background:conic-gradient(#00ffff 0% 100%, #222 100%);">
+<span>100%</span>
+</div>
+<p align="center">Team Work</p>
+</div>
+
+<div>
+<div class="circle" style="background:conic-gradient(#00ffff 0% 90%, #222 90%);">
+<span>90%</span>
+</div>
+<p align="center">Writing</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2 class="neon">Projects</h2>
+<div class="project">ATM System</div>
+<div class="project">Portfolio Website</div>
+</div>
+
+<!-- ⭐ CONTACT POPUP -->
+<div class="popup" id="contactPopup">
+<h2 class="neon">Contact Me</h2>
+
+<form action="https://formsubmit.co/yourmail@gmail.com" method="POST">
+
+<input type="text" name="name" placeholder="Full Name" required class="input">
+
+<input type="tel" name="phone" placeholder="Contact Number" required class="input">
+
+<input type="email" name="email" placeholder="Email Address" required class="input">
+
+<textarea name="message" placeholder="Message" required class="input"></textarea>
+
+<button class="btn">Send</button>
+<button type="button" class="btn" onclick="closeContact()">Close</button>
+
+</form>
+</div>
+
+<footer>© 2026 Shubham Bhimajiyani</footer>
+
+<script>
+let text="Shubham Bhimajiyani";let i=0;
+function typing(){if(i<text.length){document.getElementById("typing").innerHTML+=text.charAt(i);i++;setTimeout(typing,100);}}
+typing();
+
+let p=0;let counter=setInterval(()=>{
+if(p>=80)clearInterval(counter);
+else{p++;document.getElementById("py").innerHTML=p+"%";}
+},25);
+
+function openContact(){document.getElementById("contactPopup").classList.add("active");}
+function closeContact(){document.getElementById("contactPopup").classList.remove("active");}
+
+const canvas=document.getElementById("bg");const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+let stars=[];
+for(let i=0;i<120;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,speed:Math.random()*1});}
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);
+stars.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle="#00ffff";ctx.fill();s.y+=s.speed;if(s.y>canvas.height)s.y=0;});
+requestAnimationFrame(draw);}
+draw();
+</script>
+
+</body>
+</html>
